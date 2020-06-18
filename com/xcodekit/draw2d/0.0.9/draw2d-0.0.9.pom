@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion> 
+    <groupId>com.xcodekit</groupId>
+    <artifactId>draw2d</artifactId>
+    <version>0.0.9</version><!--  -SNAPSHOT  -->
+    <packaging>jar</packaging> 
+    <name>draw2d</name>
+    <url>http://maven.apache.org</url>   
+    <properties>
+            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+            <java.version>1.8</java.version> 
+            <maven.compiler.source>1.8</maven.compiler.source>
+            <maven.compiler.target>1.8</maven.compiler.target> 
+            <github.global.server>github</github.global.server> 
+    </properties>   
+   <dependencies> 
+      <!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
+      <dependency>
+         <groupId>com.google.zxing</groupId>
+         <artifactId>core</artifactId>
+         <version>3.3.3</version>
+     </dependency> 
+     <!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+     <dependency>
+         <groupId>com.google.zxing</groupId>
+         <artifactId>javase</artifactId>
+         <version>3.3.3</version>
+     </dependency>  
+     <dependency>  
+            <groupId>com.alibaba</groupId>  
+            <artifactId>fastjson</artifactId>  
+            <version>1.2.41</version>  
+    </dependency>  
+     <dependency>
+         <groupId>org.apache.httpcomponents</groupId>
+         <artifactId>httpclient</artifactId>
+         <version>4.5.9</version>
+     </dependency>
+    </dependencies>
+ <build> 
+       <finalName>xcodekit_draw2d</finalName> 
+       
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+                </configuration>
+             </plugin>  
+              <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version >0.12</version>
+                <configuration>
+                    <message >Maven artifacts for ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory><!--本地jar地址-->
+                    <branch>refs/heads/release</branch><!--分支的名称-->
+                    <merge>true</merge>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryOwner>xcodekit</repositoryOwner><!--github 仓库所有者即登录用户名-->
+                    <repositoryName>draw2d</repositoryName><!--对应github上创建的仓库名称 name-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+  </plugin>    
+         </plugins> 
+          
+        
+         
+   </build>
+  
+    
+</project>
